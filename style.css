@@ -77,3 +77,16 @@ h2, h3 {
     margin: 10px 0;
     color: #333;
 }
+
+@keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+}
+
+.badge-animation {
+    animation: bounce 0.5s ease-in-out;
+    color: #ff4c4c;
+    font-weight: bold;
+}
+
