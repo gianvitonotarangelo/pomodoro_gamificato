@@ -1,0 +1,79 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ffe0d4, #ffd7a3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 40px 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    text-align: center;
+    width: 320px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #ff6b6b;
+}
+
+.timer-card {
+    background-color: #fff3f0;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.timer {
+    font-size: 50px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ff4c4c;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #ff8a8a;
+    color: white;
+}
+
+button:hover {
+    background-color: #ff4c4c;
+    transform: scale(1.05);
+}
+
+.rewards {
+    margin-top: 20px;
+}
+
+.progress-bar {
+    background-color: #ffe0d4;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 20px;
+    margin: 10px 0;
+}
+
+.progress-fill {
+    background-color: #ff6b6b;
+    height: 100%;
+    width: 0%;
+    transition: width 0.5s;
+}
+
+h2, h3 {
+    margin: 10px 0;
+    color: #333;
+}
