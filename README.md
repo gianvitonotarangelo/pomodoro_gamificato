@@ -26,7 +26,8 @@ App web per la tecnica del Pomodoro con elementi di gamification
 
 ---
 
-## Come usare
+##  Come usare
 
-Scarica o clona il repository:
+1. Scarica o clona il repository:
+```bash
 git clone https://github.com/gianvitonotarangelo/pomodoro_gamificato.git
