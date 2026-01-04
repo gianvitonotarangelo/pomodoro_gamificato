@@ -17,7 +17,7 @@ App web per la tecnica del Pomodoro con elementi di gamification
 - UI semplice e pulita  
 - Animazioni leggere per i badge e barra dei progressi  
 
-## ecnologie utilizzate
+## Tecnologie utilizzate
 
 - HTML5  
 - CSS3  
