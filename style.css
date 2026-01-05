@@ -90,3 +90,10 @@ h2, h3 {
     font-weight: bold;
 }
 
+.work {
+    color: #ff4c4c;
+}
+
+.break {
+    color: #4caf50;
+}
