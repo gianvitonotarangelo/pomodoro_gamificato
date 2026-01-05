@@ -8,6 +8,13 @@ let timer;
 let points = parseInt(localStorage.getItem('points')) || 0;
 let pomodorosCompleted = parseInt(localStorage.getItem('pomodorosCompleted')) || 0;
 
+const BADGES = [
+    { threshold: 1, name: "🍅 Primo Pomodoro!" },
+    { threshold: 5, name: "🔥 Continua così!" },
+    { threshold: 10, name: "💪 Dieci pomodori completati" },
+    { threshold: 20, name: "🚀 Venti pomodori completati" }
+];
+let unlockedBadges = JSON.parse(localStorage.getItem('unlockedBadges')) || []
 const startBtn = document.getElementById('start');
 const pauseBtn = document.getElementById('pause');
 const resetBtn = document.getElementById('reset');
@@ -20,6 +27,11 @@ const timerEl = document.querySelector('.timer');
 const messageEl = document.getElementById('message');
 
 pointsEl.textContent = points;
+
+if (unlockedBadges.length > 0) {
+    badgeEl.textContent = unlockedBadges[unlockedBadges.length - 1];
+}
+
 
 
 // FUNZIONI TIMER
@@ -77,6 +89,7 @@ function completePomodoro() {
         localStorage.setItem('points', points);
         localStorage.setItem('pomodorosCompleted', pomodorosCompleted);
         pointsEl.textContent = points;
+        checkBadges();
         updateChart();
 
         showMessage('Pomodoro completato! Ottimo lavoro');
@@ -94,6 +107,24 @@ function completePomodoro() {
     seconds = 0;
     updateDisplay();
     startTimer();
+}
+
+function checkBadges() {
+    BADGES.forEach(badge => {
+        if (
+            pomodorosCompleted >= badge.threshold &&
+            !unlockedBadges.includes(badge.name)
+        ) {
+            unlockBadge(badge.name);
+        }
+    });
+}
+function unlockBadge(badgeName) {
+    unlockedBadges.push(badgeName);
+    localStorage.setItem('unlockedBadges', JSON.stringify(unlockedBadges));
+
+    showBadge(badgeName);
+    showMessage(`Nuovo badge sbloccato: ${badgeName}! 🎉`);
 }
 
 
