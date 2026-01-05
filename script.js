@@ -16,6 +16,7 @@ const secondsEl = document.getElementById('seconds');
 const pointsEl = document.getElementById('points');
 const badgeEl = document.getElementById('badge');
 const progressEl = document.getElementById('progress');
+const timerEl = document.querySelector('.timer');
 
 pointsEl.textContent = points;
 
@@ -24,6 +25,14 @@ pointsEl.textContent = points;
 function updateDisplay() {
     minutesEl.textContent = minutes.toString().padStart(2,'0');
     secondsEl.textContent = seconds.toString().padStart(2,'0');
+
+    if (isBreak) {
+        timerEl.classList.add('break');
+        timerEl.classList.remove('work');
+    } else {
+        timerEl.classList.add('work');
+        timerEl.classList.remove('break');
+    }
 }
 
 function startTimer() {
