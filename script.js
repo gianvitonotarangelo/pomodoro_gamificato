@@ -1,6 +1,7 @@
-// --------------------
+let isBreak = false;
+const statusEl = document.getElementById('status');// --------------------
+
 // VARIABILI
-// --------------------
 let minutes = 25;
 let seconds = 0;
 let timer;
@@ -18,9 +19,8 @@ const progressEl = document.getElementById('progress');
 
 pointsEl.textContent = points;
 
-// --------------------
+
 // FUNZIONI TIMER
-// --------------------
 function updateDisplay() {
     minutesEl.textContent = minutes.toString().padStart(2,'0');
     secondsEl.textContent = seconds.toString().padStart(2,'0');
@@ -55,57 +55,55 @@ function resetTimer() {
     updateDisplay();
 }
 
-// --------------------
+
 // COMPLETAMENTO POMODORO
-// --------------------
+
 function completePomodoro() {
     pauseTimer();
-    points += 10;
-    pomodorosCompleted++;
 
-    // Salva su localStorage
-    localStorage.setItem('points', points);
-    localStorage.setItem('pomodorosCompleted', pomodorosCompleted);
+    if (!isBreak) {
+        points += 10;
+        pomodorosCompleted++;
+        localStorage.setItem('points', points);
+        localStorage.setItem('pomodorosCompleted', pomodorosCompleted);
+        pointsEl.textContent = points;
+        updateChart();
+        statusEl.textContent = ' Pausa (5 minuti)';
+        minutes = 5;
+        isBreak = true;
+    } else {
+        statusEl.textContent = ' Sessione di lavoro';
+        minutes = 25;
+        isBreak = false;
+    }
 
-    pointsEl.textContent = points;
-
-    // Aggiorna barra dei progressi (ogni 5 pomodori = 100%)
-    let progress = Math.min((pomodorosCompleted % 5) * 20, 100);
-    progressEl.style.width = progress + '%';
-
-    // Aggiorna badge
-    if(pomodorosCompleted === 5) showBadge('🥉 5 Pomodori!');
-    if(pomodorosCompleted === 10) showBadge('🥈 10 Pomodori!');
-    if(pomodorosCompleted === 20) showBadge('🥇 20 Pomodori!');
-
-    // Aggiorna grafico
-    updateChart();
-
-    alert('Pomodoro completato! Prenditi una pausa.');
-    resetTimer();
+    seconds = 0;
+    updateDisplay();
+    startTimer();
 }
 
-// --------------------
+
+
 // BADGE ANIMATO
-// --------------------
+
 function showBadge(text) {
     badgeEl.textContent = text;
     badgeEl.classList.add('badge-animation');
     setTimeout(() => badgeEl.classList.remove('badge-animation'), 2000);
 }
 
-// --------------------
+
 // EVENT LISTENER
-// --------------------
+
 startBtn.addEventListener('click', startTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 resetBtn.addEventListener('click', resetTimer);
 
 updateDisplay();
 
-// --------------------
+
 // GRAFICO SETTIMANALE
-// --------------------
+
 const ctx = document.getElementById('chart').getContext('2d');
 let weeklyData = JSON.parse(localStorage.getItem('weeklyData')) || [0,0,0,0,0,0,0]; // Lun-Dom
 
