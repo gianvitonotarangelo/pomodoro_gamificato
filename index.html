@@ -13,13 +13,18 @@
 <body>
     <div class="container">
         <h1>Pomodoro Gamificato</h1>
+        <h2 id="status">🍅 Sessione di lavoro</h2>
 
         <!-- Timer Card -->
         <div class="timer-card">
             <div class="timer">
                 <span id="minutes">25</span>:<span id="seconds">00</span>
             </div>
-            <div class="controls">
+
+            <!-- Messaggio di micro-feedback -->
+             <p id="message"></p>
+            
+             <div class="controls">
                 <button id="start">Start</button>
                 <button id="pause">Pause</button>
                 <button id="reset">Reset</button>
@@ -42,5 +47,7 @@
 
     <!-- Script principale -->
     <script src="script.js"></script>
+
+
 </body>
 </html>

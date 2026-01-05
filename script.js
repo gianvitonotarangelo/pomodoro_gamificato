@@ -17,6 +17,7 @@ const pointsEl = document.getElementById('points');
 const badgeEl = document.getElementById('badge');
 const progressEl = document.getElementById('progress');
 const timerEl = document.querySelector('.timer');
+const messageEl = document.getElementById('message');
 
 pointsEl.textContent = points;
 
@@ -77,10 +78,14 @@ function completePomodoro() {
         localStorage.setItem('pomodorosCompleted', pomodorosCompleted);
         pointsEl.textContent = points;
         updateChart();
+
+        showMessage('Pomodoro completato! Ottimo lavoro');
         statusEl.textContent = ' Pausa (5 minuti)';
         minutes = 5;
         isBreak = true;
     } else {
+        // FINE PAUSA
+        showMessage('Torniamo al lavoro');
         statusEl.textContent = ' Sessione di lavoro';
         minutes = 25;
         isBreak = false;
@@ -141,4 +146,10 @@ function updateChart() {
     localStorage.setItem('weeklyData', JSON.stringify(weeklyData));
     chart.data.datasets[0].data = weeklyData;
     chart.update();
+}
+
+// FUNZIONE MICRO-FEEDBACK
+function showMessage(text) {
+    messageEl.textContent = text;
+    setTimeout(() => messageEl.textContent = '', 3000);
 }
