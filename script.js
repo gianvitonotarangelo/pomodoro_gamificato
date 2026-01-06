@@ -24,10 +24,10 @@ const pointsEl = document.getElementById('points');
 const badgeEl = document.getElementById('badge');
 const progressEl = document.getElementById('progress');
 
-function updateProgress(){
-    const cycle = 10; //
-    const pct = ((pomodoroCompleted % cycle) / cycle) * 100;
-    progressEl.style.width = `${pct}%`;
+function updateProgress() {
+  const cycle = 10;
+  const pct = ((pomodorosCompleted % cycle) / cycle) * 100;
+  progressEl.style.width = `${pct}%`;
 }
 
 const timerEl = document.querySelector('.timer');
