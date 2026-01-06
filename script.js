@@ -119,7 +119,7 @@ function completePomodoro() {
 
     seconds = 0;
     updateDisplay();
-    startTimer();
+
 }
 
 function checkBadges() {
