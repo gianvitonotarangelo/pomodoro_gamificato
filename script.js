@@ -1,10 +1,12 @@
 let isBreak = false;
+
 const statusEl = document.getElementById('status');
 
 // VARIABILI
 let minutes = 25;
 let seconds = 0;
 let timer = null;
+
 let points = parseInt(localStorage.getItem('points'), 10) || 0;
 let pomodorosCompleted = parseInt(localStorage.getItem('pomodorosCompleted'), 10) || 0;
 
@@ -20,11 +22,13 @@ let unlockedBadges = JSON.parse(localStorage.getItem('unlockedBadges')) || [];
 const startBtn = document.getElementById('start');
 const pauseBtn = document.getElementById('pause');
 const resetBtn = document.getElementById('reset');
+
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
 const pointsEl = document.getElementById('points');
 const badgeEl = document.getElementById('badge');
 const progressEl = document.getElementById('progress');
+
 const timerEl = document.querySelector('.timer');
 const messageEl = document.getElementById('message');
 
@@ -60,7 +64,6 @@ function updateProgress() {
 function showMessage(text) {
   messageEl.textContent = text;
   setTimeout(() => {
-    // Evita di cancellare messaggi più recenti
     if (messageEl.textContent === text) messageEl.textContent = '';
   }, 3000);
 }
@@ -89,7 +92,7 @@ function checkBadges() {
 
 // GRAFICO SETTIMANALE
 const ctx = document.getElementById('chart').getContext('2d');
-let weeklyData = JSON.parse(localStorage.getItem('weeklyData')) || [0, 0, 0, 0, 0, 0, 0]; // Lun-Dom
+let weeklyData = JSON.parse(localStorage.getItem('weeklyData')) || [0, 0, 0, 0, 0, 0, 0];
 
 const chart = new Chart(ctx, {
   type: 'bar',
@@ -112,9 +115,10 @@ const chart = new Chart(ctx, {
 function updateChart() {
   const day = new Date().getDay(); // 0=Dom, 1=Lun
   const index = day === 0 ? 6 : day - 1;
-  weeklyData[index] += 1;
 
+  weeklyData[index] += 1;
   localStorage.setItem('weeklyData', JSON.stringify(weeklyData));
+
   chart.data.datasets[0].data = weeklyData;
   chart.update();
 }
@@ -134,7 +138,6 @@ function startTimer() {
     } else {
       seconds -= 1;
     }
-
     updateDisplay();
   }, 1000);
 }
@@ -155,11 +158,11 @@ function resetTimer() {
   updateProgress();
 }
 // COMPLETAMENTO POMODORO
+
 function completePomodoro() {
   pauseTimer();
 
   if (!isBreak) {
-    // FINE LAVORO
     points += 10;
     pomodorosCompleted += 1;
 
@@ -187,7 +190,7 @@ function completePomodoro() {
   updateProgress();
 }
 
-// EVENT LISTENER
+// -------------------- Init
 startBtn.addEventListener('click', startTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 resetBtn.addEventListener('click', resetTimer);
