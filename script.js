@@ -23,10 +23,18 @@ const secondsEl = document.getElementById('seconds');
 const pointsEl = document.getElementById('points');
 const badgeEl = document.getElementById('badge');
 const progressEl = document.getElementById('progress');
+
+function updateProgress(){
+    const cycle = 10; //
+    const pct = ((pomodoroCompleted % cycle) / cycle) * 100;
+    progressEl.style.width = `${pct}%`;
+}
+
 const timerEl = document.querySelector('.timer');
 const messageEl = document.getElementById('message');
 
 pointsEl.textContent = points;
+updateProgress();
 
 if (unlockedBadges.length > 0) {
     badgeEl.textContent = unlockedBadges[unlockedBadges.length - 1];
@@ -71,11 +79,15 @@ function pauseTimer() {
 }
 
 function resetTimer() {
-    pauseTimer();
-    minutes = 25;
-    seconds = 0;
-    updateDisplay();
+  pauseTimer();
+  isBreak = false;
+  statusEl.textContent = 'Sessione di lavoro';
+  minutes = 25;
+  seconds = 0;
+  updateDisplay();
+  updateProgress();
 }
+
 
 
 // COMPLETAMENTO POMODORO
@@ -86,6 +98,7 @@ function completePomodoro() {
     if (!isBreak) {
         points += 10;
         pomodorosCompleted++;
+        updateProgress();
         localStorage.setItem('points', points);
         localStorage.setItem('pomodorosCompleted', pomodorosCompleted);
         pointsEl.textContent = points;
