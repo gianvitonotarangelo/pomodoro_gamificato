@@ -7,6 +7,8 @@ let minutes = 25;
 let seconds = 0;
 let timer = null;
 
+let endTime = null; // timestamp (ms) di fine countdown
+
 let points = parseInt(localStorage.getItem('points'), 10) || 0;
 let pomodorosCompleted = parseInt(localStorage.getItem('pomodorosCompleted'), 10) || 0;
 
@@ -125,28 +127,41 @@ function updateChart() {
 
 // TIMER
 function startTimer() {
-    if (timer) return;
+  if (timer) return;
 
-    timer = setInterval(() => {
-        if (seconds === 0) {
-            if (minutes === 0) {
-                completePomodoro();
-                return;
-            }
-            minutes -= 1;
-            seconds = 59;
-        } else {
-            seconds -= 1;
-        }
-        updateDisplay();
-    }, 1000);
+  const remaining = minutes * 60 + seconds;
+  endTime = Date.now() + remaining * 1000;
+
+  timer = setInterval(() => {
+    const remainingMs = endTime - Date.now();
+    const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
+
+    minutes = Math.floor(remainingSec / 60);
+    seconds = remainingSec % 60;
+
+    updateDisplay();
+
+    if (remainingSec === 0) {
+      completePomodoro();
+    }
+  }, 250);
 }
+
 
 function pauseTimer() {
-    if (!timer) return;
-    clearInterval(timer);
-    timer = null;
+  if (!timer) return;
+
+  clearInterval(timer);
+  timer = null;
+
+  if (endTime) {
+    const remainingSec = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
+    minutes = Math.floor(remainingSec / 60);
+    seconds = remainingSec % 60;
+    updateDisplay();
+  }
 }
+
 
 function resetTimer() {
     pauseTimer();
