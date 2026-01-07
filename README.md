@@ -1,4 +1,4 @@
-# Pomodoro Gamificato
+# Gamification: Pomodoro Timer Web App
 
 App web single-page per la tecnica del Pomodoro con elementi di gamification: punti, badge, barra di progresso e statistiche settimanali.
 
