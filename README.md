@@ -41,7 +41,6 @@ Chiavi principali usate:
 
 ### Logica Pomodoro
 - Alla fine della sessione di lavoro viene incrementato il contatore Pomodori e vengono assegnati i punti, poi si passa alla pausa.
-- Alla fine della pausa si torna automaticamente alla sessione di lavoro.
 
 ### Statistiche settimanali
 - Il giorno corrente viene calcolato con `Date.getDay()` e mappato a indice (Lun=0 … Dom=6) per aggiornare `weeklyData`.
